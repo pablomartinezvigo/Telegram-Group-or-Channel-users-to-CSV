@@ -11,15 +11,19 @@ import random
 import re
 
 
-api_id = 000000        # YOUR API_ID
-api_hash = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'        # YOUR API_HASH
-phone = '+34000000000'        # YOUR PHONE NUMBER, INCLUDING COUNTRY CODE
+api_id = 29785875        # YOUR API_ID
+api_hash = 'd5df4a2e774ba01992851054ea640378'        # YOUR API_HASH
+phone = '+34606280537'        # YOUR PHONE NUMBER, INCLUDING COUNTRY CODE
+password = 'equipoverde77'
 client = TelegramClient(phone, api_id, api_hash)
 
 client.connect()
 if not client.is_user_authorized():
     client.send_code_request(phone)
-    client.sign_in(phone, input('Enter the code: '))
+    try:
+      client.sign_in(phone, input('Enter the code: '))
+    except:
+      client.sign_in(password=password)
 
 def add_users_to_group():
     input_file = sys.argv[1]
@@ -54,8 +58,7 @@ def add_users_to_group():
 
     for chat in chats:
         try:
-            if chat.megagroup== True: # CONDITION TO ONLY LIST MEGA GROUPS.
-                groups.append(chat)
+            groups.append(chat)
         except:
             continue
 
@@ -104,7 +107,7 @@ def add_users_to_group():
 def list_users_in_group():
     chats = []
     last_date = None
-    chunk_size = 200
+    chunk_size = 800
     groups=[]
     
     result = client(GetDialogsRequest(
